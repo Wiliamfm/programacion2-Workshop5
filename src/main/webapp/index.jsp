@@ -38,6 +38,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Country</th>
                 <th># Books</th>
                 <th>Actions</th>
             </tr>
@@ -85,6 +86,15 @@
                                 cell.appendChild(action);
                             }
 
+                            if (actions.includes('modify-author')) {
+                                var cell = newRow.insertCell();
+                                var action = document.createElement('button');
+                                action.setAttribute('onclick', 'location.href="./form-author-m.jsp?authorId=' + d['authorId'] + '";');
+                                var text = document.createTextNode('Modify author');
+                                action.appendChild(text);
+                                cell.appendChild(action);
+                            }
+
                         });
 
                     }
@@ -98,7 +108,7 @@
             printTable(elementId = 'librariesTbl', servlet = 'list-libraries', columns = ['libraryId', 'name']);
 
             // Printing authors
-            printTable(elementId = 'authorsTbl', servlet = 'list-authors', columns = ['authorId', 'name', 'numBooks'], actions = ['create-book', 'delete-author']);
+            printTable(elementId = 'authorsTbl', servlet = 'list-authors', columns = ['authorId', 'name', 'country', 'numBooks'], actions = ['create-book', 'delete-author', 'modify-author']);
 
         </script>
 

@@ -23,6 +23,9 @@ public class Book {
     @Column(name = "isbn_number")
     private String isbn;
 
+    @Column(nullable = false)
+    private String genre;
+
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;
@@ -32,9 +35,10 @@ public class Book {
 
     public Book() {}
 
-    public Book(String title, String isbn) {
+    public Book(String title, String isbn, String genre) {
         this.title = title;
         this.isbn = isbn;
+        this.genre= genre;
     }
 
     public Book(Integer bookId, String title, String isbn) {

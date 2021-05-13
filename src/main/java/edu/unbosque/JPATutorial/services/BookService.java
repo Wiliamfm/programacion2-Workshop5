@@ -19,7 +19,7 @@ public class BookService {
     AuthorRepository authorRepository;
     BookRepository bookRepository;
 
-    public void saveBook(String title, String isbn, Integer authorId) {
+    public void saveBook(String title, String isbn, Integer authorId, String genre) {
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -29,7 +29,7 @@ public class BookService {
 
         Optional<Author> author = authorRepository.findById(authorId);
         author.ifPresent(a -> {
-            a.addBook(new Book(title, isbn));
+            a.addBook(new Book(title, isbn, genre));
             authorRepository.save(a);
         });
 

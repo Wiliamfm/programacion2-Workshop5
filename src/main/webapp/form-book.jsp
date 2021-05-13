@@ -12,6 +12,8 @@
     <br />
     Book ISBN: <input type="text" id="isbn" name="isbn">
     <br />
+    Book genre: <input type="text" id="genre" name="genre">
+    <br />
     <input type="submit" value="Create book!">
 </form>
 

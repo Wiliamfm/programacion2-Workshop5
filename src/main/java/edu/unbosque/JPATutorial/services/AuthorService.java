@@ -33,22 +33,22 @@ public class AuthorService {
             authorsPOJO.add(new AuthorPOJO(
                     author.getAuthorId(),
                     author.getName(),
+                    author.getCountry(),
                     author.getBooks().size()
             ));
         }
-
         return authorsPOJO;
 
     }
 
-    public Author saveAuthor(String name) {
+    public Author saveAuthor(String name, String country) {
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         authorRepository = new AuthorRepositoryImpl(entityManager);
 
-        Author author = new Author(name);
+        Author author = new Author(name, country);
         Author persistedAuthor = authorRepository.save(author).get();
 
         entityManager.close();
@@ -69,6 +69,18 @@ public class AuthorService {
         entityManager.close();
         entityManagerFactory.close();
 
+    }
+
+    public void modifyAuthor(Integer authorId, String name, String country){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        authorRepository = new AuthorRepositoryImpl(entityManager);
+        Author author= new Author(name, country);
+        authorRepository.modifyAuthor(authorId, author);
+
+        entityManager.close();
+        entityManagerFactory.close();
     }
 
 }
