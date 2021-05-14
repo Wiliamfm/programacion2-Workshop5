@@ -2,6 +2,7 @@ package edu.unbosque.JPATutorial.services;
 
 import edu.unbosque.JPATutorial.jpa.entities.Author;
 import edu.unbosque.JPATutorial.jpa.entities.Book;
+import edu.unbosque.JPATutorial.jpa.entities.Edition;
 import edu.unbosque.JPATutorial.jpa.repositories.AuthorRepository;
 import edu.unbosque.JPATutorial.jpa.repositories.AuthorRepositoryImpl;
 import edu.unbosque.JPATutorial.jpa.repositories.BookRepository;
@@ -11,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.Date;
 import java.util.Optional;
 
 @Stateless
@@ -29,7 +31,9 @@ public class BookService {
 
         Optional<Author> author = authorRepository.findById(authorId);
         author.ifPresent(a -> {
-            a.addBook(new Book(title, isbn, genre));
+            Book book= new Book(title, isbn, genre);
+            book.addEdition(new Edition("Primera", new Date()));
+            a.addBook(book);
             authorRepository.save(a);
         });
 
