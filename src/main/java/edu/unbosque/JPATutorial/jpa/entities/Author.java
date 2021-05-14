@@ -25,7 +25,7 @@ public class Author {
 
     // FetchType.EAGER: When we retrieve a Library, we'll also automatically retrieve all of its corresponding Books
     // CascadeType.ALL: Propagates all operations from Author to Books
-    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Book.class)
     private List<Book> books = new ArrayList<>();
 
     public Author() {}
@@ -38,6 +38,21 @@ public class Author {
     public Author(Integer authorId, String name) {
         this.authorId = authorId;
         this.name = name;
+    }
+
+    public void addBook(Book book) {
+        books.add(book);
+        book.setAuthor(this);
+    }
+
+    public boolean deleteBook(Integer id){
+        for (Book book: this.getBooks()) {
+            if(book.getBookId() == id){
+                this.getBooks().remove(book);
+                return true;
+            }
+        }
+        return false;
     }
 
     public Integer getAuthorId() {
@@ -56,20 +71,19 @@ public class Author {
         this.name = name;
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void addBook(Book book) {
-        books.add(book);
-        book.setAuthor(this);
-    }
-
     public String getCountry() {
         return country;
     }
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }

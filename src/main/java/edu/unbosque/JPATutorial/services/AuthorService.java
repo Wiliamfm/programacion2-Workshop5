@@ -1,9 +1,11 @@
 package edu.unbosque.JPATutorial.services;
 
 import edu.unbosque.JPATutorial.jpa.entities.Author;
+import edu.unbosque.JPATutorial.jpa.entities.Book;
 import edu.unbosque.JPATutorial.jpa.repositories.AuthorRepository;
 import edu.unbosque.JPATutorial.jpa.repositories.AuthorRepositoryImpl;
 import edu.unbosque.JPATutorial.servlets.pojos.AuthorPOJO;
+import edu.unbosque.JPATutorial.servlets.pojos.BookPOJO;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -81,6 +83,25 @@ public class AuthorService {
 
         entityManager.close();
         entityManagerFactory.close();
+    }
+
+    public AuthorPOJO getAuthorById(Integer id){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        authorRepository = new AuthorRepositoryImpl(entityManager);
+        Author a =authorRepository.findById(id).get();
+        AuthorPOJO author = new AuthorPOJO(a.getAuthorId(), a.getName(), a.getCountry(), a.getBooks().size());
+
+        for (Book b: a.getBooks()) {
+            author.addBook(new BookPOJO(b.getBookId(), b.getTitle(), b.getIsbn(), b.getGenre()));
+        }
+
+        entityManager.close();
+        entityManagerFactory.close();
+
+        //return a;
+        return author;
     }
 
 }

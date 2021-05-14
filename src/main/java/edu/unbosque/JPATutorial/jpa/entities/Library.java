@@ -28,12 +28,12 @@ public class Library {
 
     public Library() { }
 
-    public Library(Integer libraryId, String name) {
-        this.libraryId = libraryId;
-        this.name = name;
+    public Library(String name){
+        this.name= name;
     }
 
-    public Library(String name) {
+    public Library(Integer libraryId, String name) {
+        this.libraryId = libraryId;
         this.name = name;
     }
 
@@ -57,4 +57,7 @@ public class Library {
         return editions;
     }
 
+    public void setEditions(Set<Edition> editions) {
+        this.editions = editions;
+    }
 }

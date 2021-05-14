@@ -39,5 +39,40 @@ public class BookService {
         return;
 
     }
+    public boolean deleteBook(Integer authorId, Integer id){
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        authorRepository = new AuthorRepositoryImpl(entityManager);
+        bookRepository = new BookRepositoryImpl(entityManager);
+
+        if(bookRepository.deleteBook(authorId, id)){
+            entityManager.close();
+            entityManagerFactory.close();
+            return true;
+        }
+        entityManager.close();
+        entityManagerFactory.close();
+        return false;
+    }
+
+    public boolean modifyBook(Integer bookId, String title, String isbn, String genre){
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        authorRepository = new AuthorRepositoryImpl(entityManager);
+        bookRepository = new BookRepositoryImpl(entityManager);
+
+        if(bookRepository.modifyBook(bookId, title, isbn, genre)){
+            entityManager.close();
+            entityManagerFactory.close();
+            return true;
+        }
+        entityManager.close();
+        entityManagerFactory.close();
+        return false;
+    }
 
 }

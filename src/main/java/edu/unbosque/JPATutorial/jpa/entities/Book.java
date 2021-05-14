@@ -1,6 +1,8 @@
 package edu.unbosque.JPATutorial.jpa.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Book") // Optional
@@ -26,12 +28,12 @@ public class Book {
     @Column(nullable = false)
     private String genre;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @OneToOne(mappedBy = "book")
-    private Edition edition;
+    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Edition> edition = new ArrayList<>();
 
     public Book() {}
 
@@ -41,10 +43,16 @@ public class Book {
         this.genre= genre;
     }
 
-    public Book(Integer bookId, String title, String isbn) {
+    public Book(Integer bookId, String title, String isbn, String genre) {
         this.bookId = bookId;
         this.title = title;
         this.isbn = isbn;
+        this.genre= genre;
+    }
+
+    public void addEdition(Edition edition) {
+        this.edition.add(edition);
+        edition.setBook(this);
     }
 
     public Integer getBookId() {
@@ -71,6 +79,14 @@ public class Book {
         this.isbn = isbn;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     public Author getAuthor() {
         return author;
     }
@@ -79,11 +95,11 @@ public class Book {
         this.author = author;
     }
 
-    public Edition getEdition() { return edition; }
-
-    public void addEdition(Edition edition) {
-        this.edition = edition;
-        edition.setBook(this);
+    public List<Edition> getEdition() {
+        return edition;
     }
 
+    public void setEdition(List<Edition> edition) {
+        this.edition = edition;
+    }
 }

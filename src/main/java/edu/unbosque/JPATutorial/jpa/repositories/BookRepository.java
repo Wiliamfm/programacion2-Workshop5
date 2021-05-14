@@ -17,4 +17,8 @@ public interface BookRepository {
 
     Optional<Book> save(Book book);
 
+    boolean deleteBook(Integer authorId, Integer bookId);
+
+    boolean modifyBook(Integer bookId, String title, String isbn, String genre);
+
 }

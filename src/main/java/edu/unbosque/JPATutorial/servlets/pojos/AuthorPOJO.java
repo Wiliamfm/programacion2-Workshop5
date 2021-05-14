@@ -1,5 +1,10 @@
 package edu.unbosque.JPATutorial.servlets.pojos;
 
+import edu.unbosque.JPATutorial.jpa.entities.Book;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class AuthorPOJO {
 
     private Integer authorId;
@@ -10,13 +15,16 @@ public class AuthorPOJO {
 
     private Integer numBooks;
 
-    public AuthorPOJO() { }
+    private List<BookPOJO> books = new ArrayList<>();
 
     public AuthorPOJO(Integer authorId, String name, String country, Integer numBooks) {
         this.authorId = authorId;
         this.name = name;
         this.country= country;
         this.numBooks = numBooks;
+    }
+    public void addBook(BookPOJO book){
+        this.books.add(book);
     }
 
     public Integer getAuthorId() {
@@ -49,6 +57,14 @@ public class AuthorPOJO {
 
     public void setNumBooks(Integer numBooks) {
         this.numBooks = numBooks;
+    }
+
+    public List<BookPOJO> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<BookPOJO> books) {
+        this.books = books;
     }
 
     @Override
