@@ -54,7 +54,45 @@ public class LibraryService {
         entityManager.close();
         entityManagerFactory.close();
 
-        return;
+    }
+
+    public boolean delete(Integer id){
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        Library library = entityManager.find(Library.class, id);
+        if(library!=null){
+            entityManager.getTransaction().begin();
+            entityManager.remove(library);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            entityManagerFactory.close();
+            return true;
+        }else{
+            entityManager.close();
+            entityManagerFactory.close();
+            return false;
+        }
+    }
+
+    public boolean modify(Integer id, String name){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        Library library = entityManager.find(Library.class, id);
+        if(library!=null){
+            entityManager.getTransaction().begin();
+            library.setName(name);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            entityManagerFactory.close();
+            return true;
+        }else{
+            entityManager.close();
+            entityManagerFactory.close();
+            return false;
+        }
 
     }
 

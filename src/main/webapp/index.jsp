@@ -21,6 +21,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -102,6 +103,24 @@
                                 cell.appendChild(action);
                             }
 
+                            if (actions.includes('deleteLibrary')) {
+                                var cell = newRow.insertCell();
+                                var action = document.createElement('button');
+                                action.setAttribute('onclick', 'location.href="./DeleteLibraryServlet?libraryId=' + d['libraryId'] + '";');
+                                var text = document.createTextNode('Delete Library');
+                                action.appendChild(text);
+                                cell.appendChild(action);
+                            }
+
+                            if (actions.includes('modifyLibrary')) {
+                                var cell = newRow.insertCell();
+                                var action = document.createElement('button');
+                                action.setAttribute('onclick', 'location.href="./form-library-m.jsp?libraryId=' + d['libraryId'] + '";');
+                                var text = document.createTextNode('Modify Library');
+                                action.appendChild(text);
+                                cell.appendChild(action);
+                            }
+
                         });
 
                     }
@@ -112,7 +131,7 @@
             }
 
             // Printing libraries
-            printTable(elementId = 'librariesTbl', servlet = 'list-libraries', columns = ['libraryId', 'name']);
+            printTable(elementId = 'librariesTbl', servlet = 'list-libraries', columns = ['libraryId', 'name'], actions= ["deleteLibrary", "modifyLibrary"]);
 
             // Printing authors
             printTable(elementId = 'authorsTbl', servlet = 'list-authors', columns = ['authorId', 'name', 'country', 'numBooks'], actions = ['create-book', 'delete-author', 'modify-author', 'showInfo']);
