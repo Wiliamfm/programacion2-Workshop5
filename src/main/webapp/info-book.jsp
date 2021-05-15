@@ -73,11 +73,11 @@
                         action.appendChild(text);
                         cell.appendChild(action);
                     }
-                    if(actions.includes("showEditions")){
+                    if(actions.includes("showLibraries")){
                         var cell = newRow.insertCell();
                         var action = document.createElement('button');
-                        action.setAttribute('onclick', 'location.href="./InfoEditionServlet?bookId=' +b.bookId + '";');
-                        var text = document.createTextNode('Show Editions');
+                        action.setAttribute('onclick', 'location.href="./info-libraries.jsp?editionId=' +b.editionId + '";');
+                        var text = document.createTextNode('Show Libraries');
                         action.appendChild(text);
                         cell.appendChild(action);
                     }
@@ -85,10 +85,10 @@
             }
         }
     }
-    xhr.open('GET', '${pageContext.request.contextPath}/InfoEditionServlet?bookId='+<%out.print(request.getParameter("bookId"));%>);
+    xhr.open('GET', '${pageContext.request.contextPath}/InfoBookServlet?bookId='+<%out.print(request.getParameter("bookId"));%>);
     xhr.send(null);
 
-    makeTable('tableBooks', ['editionId', 'description', 'releaseYear', 'bookId'], ["modifyEdition", "deleteEdition", "showEditions"]);
+    makeTable('tableBooks', ['editionId', 'description', 'releaseYear', 'bookId'], ["modifyEdition", "deleteEdition", "showLibraries"]);
 </script>
 </body>
 </html>

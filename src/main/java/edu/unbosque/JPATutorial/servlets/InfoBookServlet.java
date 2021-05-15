@@ -2,22 +2,23 @@ package edu.unbosque.JPATutorial.servlets;
 
 import com.google.gson.Gson;
 
+import edu.unbosque.JPATutorial.services.AuthorService;
 import edu.unbosque.JPATutorial.services.BookService;
-import edu.unbosque.JPATutorial.services.EditionService;
+import edu.unbosque.JPATutorial.servlets.pojos.AuthorPOJO;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "InfoEditionServlet", value = "/InfoEditionServlet")
-public class InfoEditionServlet extends HttpServlet {
+@WebServlet(name = "InfoBookServlet", value = "/InfoBookServlet")
+public class InfoBookServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
-        Integer id = Integer.parseInt(request.getParameter("id"));
-        EditionService es = new EditionService();
-        String json = new Gson().toJson(es.getEdition(id));
+        Integer bookId = Integer.parseInt(request.getParameter("bookId"));
+        BookService bs = new BookService();
+        String json = new Gson().toJson(bs.getBook(bookId));
         response.getWriter().println(json);
         response.getWriter().flush();
     }

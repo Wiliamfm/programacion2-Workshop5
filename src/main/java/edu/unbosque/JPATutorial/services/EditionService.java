@@ -2,6 +2,9 @@ package edu.unbosque.JPATutorial.services;
 
 import edu.unbosque.JPATutorial.jpa.entities.Book;
 import edu.unbosque.JPATutorial.jpa.entities.Edition;
+import edu.unbosque.JPATutorial.jpa.entities.Library;
+import edu.unbosque.JPATutorial.servlets.pojos.EditionPOJO;
+import edu.unbosque.JPATutorial.servlets.pojos.LibraryPOJO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -60,8 +63,53 @@ public class EditionService {
             edition.setDescription(description);
             edition.setReleaseYear(new Date());
             entityManager.getTransaction().commit();
+            entityManager.close();
+            entityManagerFactory.close();
             return true;
         }
+        entityManager.close();
+        entityManagerFactory.close();
         return false;
+    }
+
+    public EditionPOJO getEdition(Integer id){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        Edition edition= entityManager.find(Edition.class, id);EditionPOJO pojo = new EditionPOJO(edition.getEditionId(), edition.getDescription(), String.valueOf(edition.getReleaseYear()), edition.getBook().getBookId());
+        if(edition!=null){
+
+            for (Library lib :
+                    edition.getLibraries()) {
+                pojo.addLibrary(new LibraryPOJO(lib.getLibraryId(), lib.getName()));
+            }
+        }
+        entityManager.close();
+        entityManagerFactory.close();
+        return pojo;
+    }
+
+    public void linkLibrary(Integer libraryId, Integer editionId){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Library lib= entityManager.find(Library.class, libraryId);
+        Edition ed= entityManager.find(Edition.class, editionId);
+        entityManager.getTransaction().begin();
+        ed.addLibrary(lib);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        entityManagerFactory.close();
+    }
+
+    public void unLinkLibrary(Integer libraryId, Integer editionId){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Library lib= entityManager.find(Library.class, libraryId);
+        Edition ed= entityManager.find(Edition.class, editionId);
+        entityManager.getTransaction().begin();
+        ed.removeLibrary(lib);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        entityManagerFactory.close();
     }
 }

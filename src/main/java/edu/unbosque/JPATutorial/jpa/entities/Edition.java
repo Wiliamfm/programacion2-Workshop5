@@ -52,6 +52,16 @@ public class Edition {
         library.getEditions().add(this);
     }
 
+    public void removeLibrary(Library library){
+        for (Library lib : this.libraries) {
+                if (lib.getLibraryId() == library.getLibraryId()) {
+                    libraries.remove(lib);
+                    library.getEditions().remove(this);
+                    break;
+                }
+            }
+    }
+
     /*
     public void addRent(Rent rent){
         rentList.add(rent);
