@@ -47,7 +47,7 @@
               h6.innerHTML= "Name: " +author.name +" Country: " +author.country
 
             console.log(author);
-              console.log(author.books);
+            console.log(author.books);
 
               author.books.map(b => {
                 var newRow = tableBody.insertRow();
@@ -58,6 +58,15 @@
                   cell.appendChild(text);
                 });
 
+
+                if(actions.includes("createEdition")){
+                  var cell = newRow.insertCell();
+                  var action = document.createElement('button');
+                  action.setAttribute('onclick', 'location.href="./form-edition.jsp?bookId=' +b.bookId + '";');
+                  var text = document.createTextNode('Create Edition');
+                  action.appendChild(text);
+                  cell.appendChild(action);
+                }
                 if(actions.includes("modifyBook")){
                   var cell = newRow.insertCell();
                   var action = document.createElement('button');
@@ -74,6 +83,14 @@
                   action.appendChild(text);
                   cell.appendChild(action);
                 }
+                if(actions.includes("showEditions")){
+                  var cell = newRow.insertCell();
+                  var action = document.createElement('button');
+                  action.setAttribute('onclick', 'location.href="./info-book.jsp?bookId=' +b.bookId + '";');
+                  var text = document.createTextNode('Show Editions');
+                  action.appendChild(text);
+                  cell.appendChild(action);
+                }
               });
           }
       }
@@ -81,7 +98,7 @@
   xhr.open('GET', '${pageContext.request.contextPath}/InfoAuthorServlet?authorId='+<%out.print(request.getParameter("authorId"));%>);
   xhr.send(null);
 
-  makeTable('tableBooks', ['bookId', 'title', 'isbn', 'genre'], ["modifyBook", "deleteBook"]);
+  makeTable('tableBooks', ['bookId', 'title', 'isbn', 'genre'], ["createEdition", "modifyBook", "deleteBook", "showEditions"]);
 </script>
 </body>
 </html>

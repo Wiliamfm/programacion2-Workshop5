@@ -1,11 +1,15 @@
 package edu.unbosque.JPATutorial.servlets.pojos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BookPOJO {
 
     private Integer bookId;
     private String title;
     private String isbn;
     private String genre;
+    private List<EditionPOJO> editionPOJOList = new ArrayList<>();
 
     public BookPOJO(Integer bookId, String title, String isbn, String genre) {
         this.bookId = bookId;
@@ -16,6 +20,10 @@ public class BookPOJO {
 
     public Integer getBookId() {
         return bookId;
+    }
+
+    public void addEdition(EditionPOJO editionPOJO){
+        this.editionPOJOList.add(editionPOJO);
     }
 
     public void setBookId(Integer bookId) {
@@ -44,5 +52,13 @@ public class BookPOJO {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public List<EditionPOJO> getEditionPOJOList() {
+        return editionPOJOList;
+    }
+
+    public void setEditionPOJOList(List<EditionPOJO> editionPOJOList) {
+        this.editionPOJOList = editionPOJOList;
     }
 }

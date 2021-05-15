@@ -90,9 +90,9 @@ public class AuthorService {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         authorRepository = new AuthorRepositoryImpl(entityManager);
-        Author a =authorRepository.findById(id).get();
+        Author a =entityManager.find(Author.class, id);
         AuthorPOJO author = new AuthorPOJO(a.getAuthorId(), a.getName(), a.getCountry(), a.getBooks().size());
-
+        author.getBooks().clear();
         for (Book b: a.getBooks()) {
             author.addBook(new BookPOJO(b.getBookId(), b.getTitle(), b.getIsbn(), b.getGenre()));
         }

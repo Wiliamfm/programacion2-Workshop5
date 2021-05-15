@@ -7,6 +7,8 @@ import edu.unbosque.JPATutorial.jpa.repositories.AuthorRepository;
 import edu.unbosque.JPATutorial.jpa.repositories.AuthorRepositoryImpl;
 import edu.unbosque.JPATutorial.jpa.repositories.BookRepository;
 import edu.unbosque.JPATutorial.jpa.repositories.BookRepositoryImpl;
+import edu.unbosque.JPATutorial.servlets.pojos.BookPOJO;
+import edu.unbosque.JPATutorial.servlets.pojos.EditionPOJO;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,6 +22,20 @@ public class BookService {
 
     AuthorRepository authorRepository;
     BookRepository bookRepository;
+
+    public BookPOJO getBook(Integer id){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        Book book = entityManager.find(Book.class, id);
+        BookPOJO bp = new BookPOJO(book.getBookId(), book.getTitle(), book.getIsbn(), book.getGenre());
+        for (Edition edition:
+             book.getEdition()) {
+            bp.addEdition(new EditionPOJO(edition.getEditionId(), edition.getDescription(), String.valueOf(edition.getReleaseYear()), edition.getBook().getBookId()));
+        }
+
+        return bp;
+    }
 
     public void saveBook(String title, String isbn, Integer authorId, String genre) {
 

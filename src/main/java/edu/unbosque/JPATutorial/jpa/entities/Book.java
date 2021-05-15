@@ -54,6 +54,15 @@ public class Book {
         this.edition.add(edition);
         edition.setBook(this);
     }
+    public boolean deleteEdition(Integer editionId){
+        for (Edition edition: this.getEdition()) {
+            if(edition.getEditionId()==editionId){
+                this.getEdition().remove(edition);
+                return true;
+            }
+        }
+        return false;
+    }
 
     public Integer getBookId() {
         return bookId;

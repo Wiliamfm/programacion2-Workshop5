@@ -22,6 +22,7 @@ public class AuthorPOJO {
         this.name = name;
         this.country= country;
         this.numBooks = numBooks;
+        this.books.clear();
     }
     public void addBook(BookPOJO book){
         this.books.add(book);
