@@ -139,15 +139,6 @@
                                 cell.appendChild(action);
                             }
 
-                            if (actions.includes('rent')) {
-                                var cell = newRow.insertCell();
-                                var action = document.createElement('button');
-                                action.setAttribute('onclick', 'location.href="./form-library-m.jsp?libraryId=' + d['libraryId'] + '";');
-                                var text = document.createTextNode('Rent edition');
-                                action.appendChild(text);
-                                cell.appendChild(action);
-                            }
-
                             if (actions.includes('modifyCustomer')) {
                                 var cell = newRow.insertCell();
                                 var action = document.createElement('button');
@@ -182,7 +173,7 @@
             printTable(elementId = 'authorsTbl', servlet = 'list-authors', columns = ['authorId', 'name', 'country', 'numBooks'], actions = ['create-book', 'delete-author', 'modify-author', 'showInfo']);
 
             // Printing customers
-            printTable(elementId = 'customersTbl', servlet = 'listCustomersServlet', columns = ['email', 'firstName', 'lastName', 'gender', 'age'], actions = ['rent', 'modifyCustomer', 'deleteCustomer']);
+            printTable(elementId = 'customersTbl', servlet = 'listCustomersServlet', columns = ['email', 'firstName', 'lastName', 'gender', 'age'], actions = ['modifyCustomer', 'deleteCustomer']);
 
         </script>
 

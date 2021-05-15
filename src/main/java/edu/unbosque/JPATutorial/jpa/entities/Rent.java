@@ -25,8 +25,7 @@ public class Rent {
     public Rent(){
     }
 
-    public Rent(Integer rentId, String rentingDate) {
-        this.rentId = rentId;
+    public Rent(String rentingDate) {
         this.rentingDate = rentingDate;
     }
 
@@ -52,5 +51,13 @@ public class Rent {
 
     public void setRentingDate(String rentingDate) {
         this.rentingDate = rentingDate;
+    }
+
+    public Edition getEdition() {
+        return edition;
+    }
+
+    public void setEdition(Edition edition) {
+        this.edition = edition;
     }
 }

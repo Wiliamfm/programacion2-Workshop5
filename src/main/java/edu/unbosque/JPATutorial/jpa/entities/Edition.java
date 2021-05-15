@@ -31,8 +31,8 @@ public class Edition {
     @ManyToMany(mappedBy = "editions", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Set<Library> libraries = new HashSet<>();
 
-    //@OneToMany(mappedBy = "edition", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    //private List<Rent> rentList = new ArrayList<>();
+    @OneToMany(mappedBy = "edition", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Rent> rentList = new ArrayList<>();
 
     public Edition() {}
 
@@ -62,13 +62,10 @@ public class Edition {
             }
     }
 
-    /*
     public void addRent(Rent rent){
         rentList.add(rent);
         rent.setEdition(this);
     }
-
-     */
 
     public Integer getEditionId() {
         return editionId;

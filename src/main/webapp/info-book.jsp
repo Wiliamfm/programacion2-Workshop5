@@ -81,6 +81,14 @@
                         action.appendChild(text);
                         cell.appendChild(action);
                     }
+                    if(actions.includes("rent")){
+                        var cell = newRow.insertCell();
+                        var action = document.createElement('button');
+                        action.setAttribute('onclick', 'location.href="./rentEdition.jsp?editionId=' +b.editionId + '";');
+                        var text = document.createTextNode('Rent edition');
+                        action.appendChild(text);
+                        cell.appendChild(action);
+                    }
                 });
             }
         }
@@ -88,7 +96,7 @@
     xhr.open('GET', '${pageContext.request.contextPath}/InfoBookServlet?bookId='+<%out.print(request.getParameter("bookId"));%>);
     xhr.send(null);
 
-    makeTable('tableBooks', ['editionId', 'description', 'releaseYear', 'bookId'], ["modifyEdition", "deleteEdition", "showLibraries"]);
+    makeTable('tableBooks', ['editionId', 'description', 'releaseYear', 'bookId'], ["modifyEdition", "deleteEdition", "showLibraries", "rent"]);
 </script>
 </body>
 </html>
