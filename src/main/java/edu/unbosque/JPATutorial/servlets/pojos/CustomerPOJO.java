@@ -1,45 +1,27 @@
-package edu.unbosque.JPATutorial.jpa.entities;
+package edu.unbosque.JPATutorial.servlets.pojos;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name="Customer")
-public class Customer {
+public class CustomerPOJO {
 
-    @Id
-    @Column(name="email")
     private String email;
-
-    @Column(name="firstName")
     private String firstName;
-
-    @Column(name="lastName")
     private String lastName;
-
-    @Column(name="Gender")
     private String gender;
+    private int age;
+    private List<RentPOJO> rents= new ArrayList<>();
 
-    @Column(name="age")
-    private Integer age;
-
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Rent> rentList = new ArrayList<>();
-
-    public Customer(){
-    }
-
-    public Customer(String email, String firstName, String lastName, String gender, Integer age) {
+    public CustomerPOJO(String email, String firstName, String lastName, String gender, int age) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.age = age;
     }
-    public void addRent(Rent rent){
-        getRentList().add(rent);
-        rent.setCustomer(this);
+
+    public void addRent(RentPOJO rent){
+        rents.add(rent);
     }
 
     public String getEmail() {
@@ -74,19 +56,11 @@ public class Customer {
         this.gender = gender;
     }
 
-    public Integer getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(int age) {
         this.age = age;
-    }
-
-    public List<Rent> getRentList() {
-        return rentList;
-    }
-
-    public void setRentList(List<Rent> rentList) {
-        this.rentList = rentList;
     }
 }

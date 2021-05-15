@@ -13,6 +13,7 @@
 
         <button onclick="location.href='./form-library.jsp';">Create library</button>
         <button onclick="location.href='./form-author.jsp';">Create author</button>
+        <button onclick="location.href='./form-customer.jsp';">Create customer</button>
 
         <h3>Libraries</h3>
 
@@ -37,6 +38,23 @@
                 <th>Name</th>
                 <th>Country</th>
                 <th># Books</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <h3>Customers</h3>
+
+        <table id="customersTbl" class="table">
+            <thead>
+            <tr>
+                <th>email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Age</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -121,6 +139,33 @@
                                 cell.appendChild(action);
                             }
 
+                            if (actions.includes('rent')) {
+                                var cell = newRow.insertCell();
+                                var action = document.createElement('button');
+                                action.setAttribute('onclick', 'location.href="./form-library-m.jsp?libraryId=' + d['libraryId'] + '";');
+                                var text = document.createTextNode('Rent edition');
+                                action.appendChild(text);
+                                cell.appendChild(action);
+                            }
+
+                            if (actions.includes('modifyCustomer')) {
+                                var cell = newRow.insertCell();
+                                var action = document.createElement('button');
+                                action.setAttribute('onclick', 'location.href="./form-customer-m.jsp?id=' + d['email'] + '";');
+                                var text = document.createTextNode('Modify Customer');
+                                action.appendChild(text);
+                                cell.appendChild(action);
+                            }
+
+                            if (actions.includes('deleteCustomer')) {
+                                var cell = newRow.insertCell();
+                                var action = document.createElement('button');
+                                action.setAttribute('onclick', 'location.href="./DeleteCustomerServlet?id=' + d['email'] + '";');
+                                var text = document.createTextNode('Delete Customer');
+                                action.appendChild(text);
+                                cell.appendChild(action);
+                            }
+
                         });
 
                     }
@@ -135,6 +180,9 @@
 
             // Printing authors
             printTable(elementId = 'authorsTbl', servlet = 'list-authors', columns = ['authorId', 'name', 'country', 'numBooks'], actions = ['create-book', 'delete-author', 'modify-author', 'showInfo']);
+
+            // Printing customers
+            printTable(elementId = 'customersTbl', servlet = 'listCustomersServlet', columns = ['email', 'firstName', 'lastName', 'gender', 'age'], actions = ['rent', 'modifyCustomer', 'deleteCustomer']);
 
         </script>
 

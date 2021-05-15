@@ -25,10 +25,8 @@ public class Rent {
     public Rent(){
     }
 
-    public Rent(Integer rentId, Customer customer, Edition edition, String rentingDate) {
+    public Rent(Integer rentId, String rentingDate) {
         this.rentId = rentId;
-        this.customer = customer;
-        this.edition = edition;
         this.rentingDate = rentingDate;
     }
 
@@ -46,14 +44,6 @@ public class Rent {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    public Edition getEdition() {
-        return edition;
-    }
-
-    public void setEdition(Edition edition) {
-        this.edition = edition;
     }
 
     public String getRentingDate() {
