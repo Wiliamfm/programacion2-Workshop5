@@ -3,10 +3,13 @@ package edu.unbosque.JPATutorial.services;
 import edu.unbosque.JPATutorial.jpa.entities.Customer;
 import edu.unbosque.JPATutorial.jpa.entities.Edition;
 import edu.unbosque.JPATutorial.jpa.entities.Rent;
+import edu.unbosque.JPATutorial.servlets.pojos.RentPOJO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RentService {
 
@@ -31,5 +34,33 @@ public class RentService {
         entityManagerFactory.close();
         return false;
 
+    }
+
+    public List<RentPOJO> listRents(String email, String date){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
+        EntityManager entityManager= entityManagerFactory.createEntityManager();
+
+        try{
+
+            List<Rent> rentList= entityManager.createQuery("select r from Rent r where r.rentingDate="+"'"+date+"'").getResultList();
+            List<RentPOJO> pojos= new ArrayList<>();
+            for (Rent r :
+                    rentList) {
+                pojos.add(new RentPOJO(r.getRentId(), r.getCustomer().getEmail(), r.getRentingDate(), r.getEdition().getEditionId()));
+            }
+            entityManager.close();
+            entityManagerFactory.close();
+            return pojos;
+
+        }catch (Exception e){
+
+            Customer c= entityManager.find(Customer.class, email);
+            List<RentPOJO> a= new ArrayList<>();
+
+            a.add(new RentPOJO(-1, e.getMessage(), "date", -1));
+
+            return a;
+
+        }
     }
 }

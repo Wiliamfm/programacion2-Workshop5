@@ -6,13 +6,14 @@ public class RentPOJO {
 
     private int id;
     private String email;
-    // private int editionId;
-    private Date rentingDate;
+     private int editionId;
+    private String rentingDate;
 
-    public RentPOJO(int id, String email, Date rentingDate) {
+    public RentPOJO(int id, String email, String rentingDate, int editionId) {
         this.id = id;
         this.email = email;
         this.rentingDate = rentingDate;
+        this.editionId= editionId;
     }
 
     public int getId() {
@@ -31,11 +32,19 @@ public class RentPOJO {
         this.email = email;
     }
 
-    public Date getRentingDate() {
+    public String getRentingDate() {
         return rentingDate;
     }
 
-    public void setRentingDate(Date rentingDate) {
+    public void setRentingDate(String rentingDate) {
         this.rentingDate = rentingDate;
+    }
+
+    public int getEditionId() {
+        return editionId;
+    }
+
+    public void setEditionId(int editionId) {
+        this.editionId = editionId;
     }
 }
