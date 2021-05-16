@@ -20,7 +20,7 @@
   </h6>
 </div>
 <div>
-  <form action="">
+  <form id="form" >
     <input type="hidden" id="customerId" name="customerId" value="<%=request.getParameter("customerId")+"\";"%>">
     Enter rent date(year-month-day): <input type="text" id="date" name="date">
     <input type="submit" value="search rents!">
@@ -41,6 +41,7 @@
 
 <script>
   var xhr = new XMLHttpRequest();
+
   function makeTable(elementId, columns, actions){
     xhr.onreadystatechange = function (){
       if(xhr.readyState == 4){
@@ -75,7 +76,8 @@
       }
     }
   }
-  xhr.open('GET', '${pageContext.request.contextPath}/ListRentsServlet?customerId=wfonsecam%40unbosque.edu.co&date=2021-05-15');
+
+  xhr.open('GET', '${pageContext.request.contextPath}/ListRentsServlet?customerId=<%=request.getParameter("customerId")%>&date=<%=request.getParameter("date")%>');
   xhr.send(null);
 
   makeTable('tableBooks', ['id', 'email', 'editionId', 'rentingDate'], []);
