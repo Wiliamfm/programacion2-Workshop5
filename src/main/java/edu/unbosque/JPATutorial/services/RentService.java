@@ -42,7 +42,7 @@ public class RentService {
 
         try{
 
-            List<Rent> rentList= entityManager.createQuery("select r from Rent r where r.rentingDate="+"'"+date+"'").getResultList();
+            List<Rent> rentList= entityManager.createQuery("select r from Rent r where r.rentingDate="+"'"+date+"' and r.customer="+"'"+email+"'").getResultList();
             List<RentPOJO> pojos= new ArrayList<>();
             for (Rent r :
                     rentList) {

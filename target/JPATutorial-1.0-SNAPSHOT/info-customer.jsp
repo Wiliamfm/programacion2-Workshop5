@@ -78,7 +78,7 @@
   xhr.open('GET', '${pageContext.request.contextPath}/ListRentsServlet?customerId=wfonsecam%40unbosque.edu.co&date=2021-05-15');
   xhr.send(null);
 
-  makeTable('tableBooks', ['rentId', 'email', 'editionId', 'rentingDate'], []);
+  makeTable('tableBooks', ['id', 'email', 'editionId', 'rentingDate'], []);
 </script>
 
 </body>
