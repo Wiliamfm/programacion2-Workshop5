@@ -1,6 +1,7 @@
 package edu.unbosque.JPATutorial.services;
 
 import edu.unbosque.JPATutorial.jpa.entities.Customer;
+import edu.unbosque.JPATutorial.jpa.entities.Rent;
 import edu.unbosque.JPATutorial.servlets.pojos.CustomerPOJO;
 
 import javax.persistence.EntityManager;
@@ -55,6 +56,9 @@ public class CustomerService {
         Customer customer= entityManager.find(Customer.class, email);
         if(customer!=null){
             entityManager.getTransaction().begin();
+            customer.getRentList().forEach(rent -> {
+                entityManager.remove(rent);
+            });
             entityManager.remove(customer);
             entityManager.getTransaction().commit();
             entityManager.close();

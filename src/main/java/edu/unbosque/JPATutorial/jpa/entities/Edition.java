@@ -107,7 +107,6 @@ public class Edition {
         this.libraries = libraries;
     }
 
-    /*
     public List<Rent> getRentList() {
         return rentList;
     }
@@ -115,6 +114,4 @@ public class Edition {
     public void setRentList(List<Rent> rentList) {
         this.rentList = rentList;
     }
-
-     */
 }

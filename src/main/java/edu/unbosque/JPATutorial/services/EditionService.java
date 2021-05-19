@@ -43,6 +43,10 @@ public class EditionService {
         if(edition!=null){
             entityManager.getTransaction().begin();
             book.deleteEdition(editionId);
+            for (Library lib :
+                    edition.getLibraries()) {
+                lib.getEditions().remove(edition);
+            }
             entityManager.remove(edition);
             entityManager.getTransaction().commit();
             entityManager.close();

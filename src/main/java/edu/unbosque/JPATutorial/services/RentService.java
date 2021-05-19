@@ -63,4 +63,22 @@ public class RentService {
 
         }
     }
+
+    public boolean delete(Integer id){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
+        EntityManager entityManager= entityManagerFactory.createEntityManager();
+
+        Rent rent = entityManager.find(Rent.class, id);
+        if(rent!=null){
+            entityManager.getTransaction().begin();
+            entityManager.remove(rent);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            entityManagerFactory.close();
+            return true;
+        }
+        entityManager.close();
+        entityManagerFactory.close();
+        return false;
+    }
 }

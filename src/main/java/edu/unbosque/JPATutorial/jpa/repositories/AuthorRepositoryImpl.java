@@ -49,11 +49,6 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             try {
 
                 entityManager.getTransaction().begin();
-
-                author.getBooks().forEach(book -> {
-                    entityManager.remove(book);
-                });
-
                 entityManager.remove(author);
                 entityManager.getTransaction().commit();
 

@@ -42,6 +42,19 @@ public class Customer {
         rent.setCustomer(this);
     }
 
+    /*
+    public Rent getRent(Integer id){
+        for (Rent rent :
+                getRentList()) {
+            if (rent.getRentId() == id) {
+                return rent;
+            }
+        }
+        return null;
+    }
+
+     */
+
     public String getEmail() {
         return email;
     }
