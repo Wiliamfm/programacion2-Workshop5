@@ -1,5 +1,6 @@
 package edu.unbosque.JPATutorial.services;
 
+import edu.unbosque.JPATutorial.jpa.entities.Edition;
 import edu.unbosque.JPATutorial.jpa.entities.Library;
 import edu.unbosque.JPATutorial.jpa.repositories.LibraryRepository;
 import edu.unbosque.JPATutorial.jpa.repositories.LibraryRepositoryImpl;
@@ -64,6 +65,10 @@ public class LibraryService {
         Library library = entityManager.find(Library.class, id);
         if(library!=null){
             entityManager.getTransaction().begin();
+            for (Edition edition :
+                    library.getEditions()) {
+                edition.removeLibrary(library);
+            }
             entityManager.remove(library);
             entityManager.getTransaction().commit();
             entityManager.close();

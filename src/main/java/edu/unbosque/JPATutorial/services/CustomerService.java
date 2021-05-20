@@ -52,11 +52,11 @@ public class CustomerService {
     public boolean delete(String email){
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-
+        entityManager.getTransaction().begin();
         Customer customer= entityManager.find(Customer.class, email);
         if(customer!=null){
-            entityManager.getTransaction().begin();
             customer.getRentList().forEach(rent -> {
+                //int del= entityManager.createQuery("delete from Rent where 'rent_id'="+rent.getRentId()).executeUpdate();
                 entityManager.remove(rent);
             });
             entityManager.remove(customer);
