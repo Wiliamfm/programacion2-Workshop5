@@ -3,6 +3,7 @@
 ## Integrantes
 - Sergio Valderrama
 - William Fonseca
+- Juan Beltran
 
 ###### Enlace del video:
 https://youtu.be/Pdsuc7c3IiM
